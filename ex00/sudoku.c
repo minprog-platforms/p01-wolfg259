@@ -67,15 +67,53 @@ int grid_filled(int grid[9][9])
     return (1);
 }
 
-int solve_sudoku(int grid[9][9])
+int digit_allowed(int digit, int row, int column, int grid[9][9])
 {
-    if (grid_filled(grid) == 1)
+    /* this function returns 1 if the proposed digit
+    is allowed at position [row][column] in grid, 
+    and returns 0 if it is not.
+    As inputs it takes the digit to check, the grid, 
+    and the row and column location that the digit 
+    should be checked for.
+    */
+
+    // check row and column
+    for (int position = 0; position <= 9; position++)
     {
-        return (1);
+        // row
+        if ((grid[position][column] == digit) && (position != row))
+        {
+            return (0);
+        }
+        // column
+        if ((grid[row][position] == digit) && (position != column))
+        {
+            return (0);
+        }
     }
 
-    //TODO
+    // find indices at which row and column of the box to check start
+    int box_row_start = (row / 3) * 3;
+    int box_column_start = (column / 3) * 3;
+    for (int box_row = 0; box_row <= 3; box_row++)
+    {
+        for (int box_column = 0; box_column <= 3; box_column++)
+        {
+            if (
+                (grid[box_row_start + box_row][box_column_start + box_column] == digit)
+                && (box_row_start + box_row != row)
+                && (box_column_start + box_column != column))
+                {
+                    return (0);
+                }
+        }
+    }
+
+    // all checks passed
+    return (1);
 }
+
+
 
 /* TO RUN COMPILED FILE NAMED "sudoku" (no .out or .exe) PASTE:
 ./sudoku "9...7...." "2...9..53" ".6..124.." "84...1.9." "5.....8.." ".31..4..." "..37..68." ".9..5.741" "47......."
@@ -95,12 +133,9 @@ int main(int argc, char **argv)
     // TEMP: see if input converts correctly
     print_sudoku(board);
 
-    // loop while board is not filled
-    while (grid_filled(board) == 0)
-    {
-
-    }
-
+    // TEMP: check if digit_allowed() works
+    printf("%d\n", digit_allowed(9, 8, 8, board));
+    
 
 
 
