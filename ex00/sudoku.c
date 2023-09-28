@@ -1,7 +1,13 @@
+/* This file solves a sudoku provided as compiled file input
+in the form of 9 lines of 9 characters, for example;
+./sudoku "9...7...." "2...9..53" ".6..124.." "84...1.9." "5.....8.." ".31..4..." "..37..68." ".9..5.741" "47......."
+based on a recursively implemented backtracking algorithm,
+and prints the solved sudoku. If an unsolvable sudoku is 
+provided "Error\n" is printed instead.
+*/
+
 #include <unistd.h>
 #include <stdlib.h>
-
-#include <stdio.h>
 
 void ft_putchar(char c)
 {
@@ -196,7 +202,7 @@ int main(int argc, char **argv)
 		print_sudoku(board);
 	}
 
-	// this "uses" parameter argc so file compiles
+	// this "uses" parameter argc so file compiles with moulinette flags
 	argc += 2;
 
 	return (0);
